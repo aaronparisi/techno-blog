@@ -7,14 +7,14 @@ interface PostInfo {
 }
 const pages: PostInfo[] = [
   {
-    path: '/vanilla-reflections',
-    content:
-      'Vanilla with no Sprinkles: a meandering reflection on a year without React.',
-  },
-  {
     path: '/skillset',
     content:
-      'The Skillset: reflections on my evolving understanding of what writing software entials.',
+      'The Skillset: reflections on my evolving understanding of what writing software entials - April 2023',
+  },
+  {
+    path: '/vanilla-reflections',
+    content:
+      'Vanilla with no Sprinkles: a meandering reflection on a year without React - July 2023',
   },
 ];
 const TableOfContents: React.FC = () => {

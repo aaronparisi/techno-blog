@@ -1,25 +1,36 @@
 :root {
   --color-dark: #1c2321;
   --color-light: #7d98a1;
-  --color-accent: #e15554;
+  --color-accent-light: #751515;
+  --color-accent-dark: #e15554;
 }
 
 body {
-  --color-bg: var(--color-dark);
-  --color-fg: var(--color-light);
+  --color-bg: var(--color-light);
+  --color-fg: var(--color-dark);
+  --color-accent: var(--color-accent-light);
 
   background-color: var(--color-bg);
 }
 
 body.dark-mode {
-  --color-bg: var(--color-light);
-  --color-fg: var(--color-dark);
+  --color-bg: var(--color-dark);
+  --color-fg: var(--color-light);
+  --color-accent: var(--color-accent-dark);
 }
 
 h1,
 h2,
 h3 {
   color: var(--color-accent);
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 a,
@@ -32,4 +43,16 @@ button {
 a:hover {
   background-color: var(--color-accent);
   color: var(--color-bg);
+}
+
+.App {
+  padding: 2rem;
+}
+
+.blog-post {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  text-align: left;
 }
