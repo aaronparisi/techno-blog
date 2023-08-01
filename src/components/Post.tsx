@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
 interface PostProps {
@@ -15,7 +16,8 @@ const Post: React.FC<PostProps> = ({ path }) => {
   }, [path]);
 
   return (
-    <section className="blog-post" id="vanilla-reflections">
+    <section className="blog-post">
+      <Link to="/">Back to Table of Contents</Link>
       <ReactMarkdown children={content} />
     </section>
   );

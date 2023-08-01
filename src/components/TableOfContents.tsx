@@ -8,11 +8,13 @@ interface PostInfo {
 const pages: PostInfo[] = [
   {
     path: '/vanilla-reflections',
-    content: 'Vanilla Reflections',
+    content:
+      'Vanilla with no Sprinkles: a meandering reflection on a year without React.',
   },
   {
     path: '/skillset',
-    content: 'Skillset',
+    content:
+      'The Skillset: reflections on my evolving understanding of what writing software entials.',
   },
 ];
 const TableOfContents: React.FC = () => {
