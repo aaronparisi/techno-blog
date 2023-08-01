@@ -1,22 +1,17 @@
 :root {
-  --color-dark: #1c2321;
-  --color-light: #7d98a1;
-  --color-accent-light: #751515;
-  --color-accent-dark: #e15554;
+  --color-accent: #751515;
+  --color-bg: #7d98a1;
+  --color-fg: #1c2321;
+}
+
+:root.dark-mode {
+  --color-accent: #e15554;
+  --color-bg: #1c2321;
+  --color-fg: #7d98a1;
 }
 
 body {
-  --color-bg: var(--color-light);
-  --color-fg: var(--color-dark);
-  --color-accent: var(--color-accent-light);
-
   background-color: var(--color-bg);
-}
-
-body.dark-mode {
-  --color-bg: var(--color-dark);
-  --color-fg: var(--color-light);
-  --color-accent: var(--color-accent-dark);
 }
 
 h1,
@@ -41,12 +36,16 @@ button {
 }
 
 a:hover {
-  background-color: var(--color-accent);
+  background-color: var(--color-fg);
   color: var(--color-bg);
 }
 
 .App {
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .blog-post {
@@ -55,4 +54,25 @@ a:hover {
   align-items: flex-start;
   gap: 1rem;
   text-align: left;
+}
+
+.table-of-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+button {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+  box-shadow: none;
+  outline: none;
+  border: 1px solid var(--color-bg);
+  padding: 0.5rem;
+}
+
+button:hover {
+  background-color: var(--color-accent);
+  cursor: pointer;
 }
