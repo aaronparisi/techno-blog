@@ -9,7 +9,7 @@ const pages: PostInfo[] = [
   {
     path: '/skillset',
     content:
-      'The Skillset: reflections on my evolving understanding of what writing software entials - April 2023',
+      'The Skillset: my evolving understanding of what writing software entails - April 2023',
   },
   {
     path: '/vanilla-reflections',
