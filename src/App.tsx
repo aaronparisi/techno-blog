@@ -9,7 +9,7 @@ import VanillaMarkdown from './blogPosts/VanillaReflections.md';
 import SkillsetMarkdown from './blogPosts/Skillset.md';
 import JSValueReferenceMarkdown from './blogPosts/JSValueReference.md';
 import AsyncForEachMarkdown from './blogPosts/AsyncForEach.md';
-import StringPort from './blogPosts/StringPort.md';
+import StringPortMarkdown from './blogPosts/StringPort.md';
 
 import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
@@ -55,7 +55,7 @@ const pages: PostInfo[] = [
   {
     path: '/string-port',
     content: 'What happens if you pass a string to server.listen()? - May 2023',
-    markdown: AsyncForEachMarkdown,
+    markdown: StringPortMarkdown,
   },
   {
     path: '/vanilla-reflections',

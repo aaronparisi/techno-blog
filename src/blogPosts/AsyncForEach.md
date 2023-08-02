@@ -128,7 +128,7 @@ In any event, this was not a satisfactory solution - it does not prevent the nex
 
 ... resulting in:
 
-```js
+```bash
 hello from the next iteration of the forEach loop, el:  1
 making a new promise!
 hello from the next iteration of the forEach loop, el:  2
@@ -153,7 +153,7 @@ done "await"ing, res:  5
 
 Foiled again!! Note that in the latest example, I am not _reassigning_ any promises. ChatGPT then told me to use a `for...of` loop:
 
-```js
+````js
 async function example() {
   for (const el of [1, 2, 3, 4, 5]) {
     console.log('hello from the next iteration of the for loop, el: ', el);
@@ -170,6 +170,7 @@ async function example() {
 
 // RESULTS:
 
+```bash
 hello from the next iteration of the for loop, el:  1
 making a new promise!
 timeout is finished
@@ -190,6 +191,6 @@ hello from the next iteration of the for loop, el:  5
 making a new promise!
 timeout is finished
 done "await"ing, res:  5
-```
+````
 
 Apparently this works because `for...of` is built on the [iterator protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols), and the way "moving on to the next iteration" relies on the invocation of the `next()` method. Time for further reading.
