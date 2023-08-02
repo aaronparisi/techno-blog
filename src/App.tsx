@@ -13,7 +13,7 @@ import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
 
 export const getInitialThemePreference = () => {
-  const storedDarkMode: string | undefined = Cookies.get('ap_dark_mode');
+  const storedDarkMode: string | undefined = Cookies.get('ap_blog_dark_mode');
 
   if (storedDarkMode !== undefined) {
     return JSON.parse(storedDarkMode);
@@ -31,7 +31,7 @@ function App() {
   // dark mode
   const [darkMode, setDarkMode] = useState<boolean>(getInitialThemePreference);
   const toggleDarkMode = () => {
-    Cookies.set('ap_dark_mode', JSON.stringify(!darkMode));
+    Cookies.set('ap_blog_dark_mode', JSON.stringify(!darkMode));
     setDarkMode((prev) => !prev);
   };
   useEffect(() => {
@@ -40,7 +40,7 @@ function App() {
   }, [darkMode]);
   useEffect(() => {
     const handleChange = (e: MediaQueryListEvent) => {
-      if (!Cookies.get('ap_dark_mode')) setDarkMode(e.matches);
+      if (!Cookies.get('ap_blog_dark_mode')) setDarkMode(e.matches);
     };
 
     const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
