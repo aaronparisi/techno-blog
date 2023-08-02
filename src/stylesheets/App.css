@@ -59,8 +59,15 @@ a:hover {
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+
+  position: relative;
 }
 
+.dark-mode-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
 .blog-post {
   display: flex;
   flex-direction: column;

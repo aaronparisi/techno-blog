@@ -8,7 +8,8 @@ import TableOfContents from './components/TableOfContents';
 import VanillaMarkdown from './blogPosts/VanillaReflections.md';
 import SkillsetMarkdown from './blogPosts/Skillset.md';
 import JSValueReferenceMarkdown from './blogPosts/JSValueReference.md';
-import AsyncForEach from './blogPosts/AsyncForEach.md';
+import AsyncForEachMarkdown from './blogPosts/AsyncForEach.md';
+import StringPort from './blogPosts/StringPort.md';
 
 import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
@@ -47,14 +48,19 @@ const pages: PostInfo[] = [
     markdown: JSValueReferenceMarkdown,
   },
   {
+    path: '/async-for-each',
+    content: 'async-a-what? : a ChatGPT learning session - May 2023',
+    markdown: AsyncForEachMarkdown,
+  },
+  {
+    path: '/string-port',
+    content: 'What happens if you pass a string to server.listen()? - May 2023',
+    markdown: AsyncForEachMarkdown,
+  },
+  {
     path: '/vanilla-reflections',
     content:
       'Vanilla with no Sprinkles: a meandering reflection on a year without React - July 2023',
-    markdown: VanillaMarkdown,
-  },
-  {
-    path: '/async-for-each',
-    content: 'async-a-what? : a ChatGPT learning session',
     markdown: VanillaMarkdown,
   },
 ];
@@ -93,7 +99,7 @@ function App() {
               <Route
                 key={path}
                 path={path}
-                element={<Post path={markdown} />}
+                element={<Post path={markdown} darkMode={darkMode} />}
               />
             );
           })}

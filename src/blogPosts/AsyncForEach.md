@@ -1,12 +1,12 @@
 # Exploration of some async-ness
 
-#### March 2023
+#### May 2023
 
 I am rewriting the API for a toy Air BnB clone from Rails to Node.js. While working on seeding [the database](https://node-postgres.com/apis/pool), I ended up having a good 1-on-1 with ChatGPT, and wanted to discuss some of the takeaways.
 
 The situation: each seed `user` has some number of properties that they "manage." The code looks like this:
 
-```
+```js
 console.log('seeding user: ', usr.username)
 const userId = await pgClient.query(`
   INSERT INTO users (id, username, email, password_hash, password_salt)
@@ -29,9 +29,9 @@ usr.properties.forEach(async prop => {
   // stuff with the propId
 ```
 
-Despite it being the 2nd sentence of the docs, I did not realize that await [can only be used inside an async function or at the top level of a module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await). The quick solution is to mark the `forEach` callback as `async`, but before I realized this I decided to refactor the function using promises:
+Despite it being the 2nd sentence of the docs, I forgot that await [can only be used inside an async function or at the top level of a module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await). The quick solution is to mark the `forEach` callback as `async`, but I had the thought to refactor the function using promises:
 
-```
+```js
 console.log('seeding user: ', usr.username)
 const userId = await pgClient.query(`
   INSERT INTO users (id, username, email, password_hash, password_salt)
@@ -55,15 +55,16 @@ usr.properties.forEach(prop => {
 
 I don't think there is anything _wrong_ with this approach, but I began to wonder about subsequent iterations of the `forEach` loop - specifically in the context of executing concurrent `INSERT` queries on the same table in a database.
 
-ChatGPT told me that `await` prevents the JS engine from even starting the subsequent iteration of the loop until the remainder of the loop's body code is executed. I don't think that's correct, but we'll come back to that. At this point, I was wondering if I could prevent a `forEach` loop's subsequent iteration _without_ `await`. ChatGPT gave me 2 options:
+ChatGPT told me that `await` ensures that the subsequent iteration does not start until the current iteration finishes completely. I don't think that's correct, but we'll come back to that. At this point, I was wondering if I could prevent a `forEach` loop's subsequent iteration _without_ `await` (although I don't specifically remember why that question occurred to me). ChatGPT gave me 2 options:
 
 One option, termed the "continuation-passing style," favored recursion over loops:
 
-```
+```js
 function fetchUrls(urls, callback) {
   let index = 0;
 
   function next() {
+    // fn to be called recursively
     if (index >= urls.length) {
       callback();
       return;
@@ -71,10 +72,10 @@ function fetchUrls(urls, callback) {
 
     const url = urls[index++];
     fetch(url)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         // Do something with the data
-        next();
+        next(); // this has to "await" the http request
       });
   }
 
@@ -89,15 +90,16 @@ Another option was to force the loop's body to be synchronous, such as `xhr.open
 > In contrast, a synchronous XHR request blocks the main thread until the response is received. This means that the browser cannot respond to user input or execute any other JavaScript code until the XHR request is complete. This can cause the user interface to become unresponsive and negatively impact the user experience.
 > Therefore, it's generally better to use asynchronous requests with callbacks or promises, or async/await if it's available, instead of synchronous XHR requests."
 
-This is in a sense obvious - blocking the main thread vs blocking the execution of some subsequent lines of code in a particular function in a particular file - but I found that explanation insightful. Remember: I am _trying_ to block the execution of the loop (and am still under the impression that `await` will do this for me). In any event, - duh, one way to block execution of the next loop iteration is to literally block the entire engine.
+At this point I was like "oh duh obviouisly" - preventing the execution of some subsequent lines of code in a particular function is not the same as blocking the main thread. For whatever reason though it _clicked_ and I found that explanation insightful. Remember: I am _trying_ to block the execution of the loop (and am still under the impression that `await` will do this for me). In any event, - duh, one way to block execution of the next loop iteration is to literally block the entire engine.
 
 Aside: one additional avenue provided by ChatGPT involved "tying" the next iteration's body to the resolution of the previous':
 
-```
+```js
 function runLoop(numIterations) {
   let promise = Promise.resolve();
   for (let i = 0; i < numIterations; i++) {
     promise = promise.then(() => {
+      // we are forced to wait, even if promise is resolved already
       // I don't run until last iteration's promise resolves!!
       return myCustomFunction();
     });
@@ -106,26 +108,27 @@ function runLoop(numIterations) {
 }
 ```
 
-Still though - this does not prevent the next iteration from _starting_, but it does force each iteration's functionality to wait for the resolution of that of the previous iteration. Ok so still not able to block iteration. So an experiment:
+Another aside: I was reflecting on things like `Promise.resolve` or `setTimeout(() => { ... }, 0)` and came across [this article](https://javascript.info/event-loop) detailing the micro- and macro-task queues.
 
-```
-[1, 2, 3, 4, 5].forEach(async el => {
-  console.log('hello from the next iteration of the forEach loop, el: ', el)
-  const res = await new Promise(resolve => {
-    // should wait until last for loop is over but it does not!
-    console.log('making a new promise!')
+In any event, this was not a satisfactory solution - it does not prevent the next iteration from _starting_, even if it does force each iteration's functionality to wait for the resolution of that of the previous. Sadly it also executes `myCustomFunction` `numIterations` times. An experiment:
+
+```js
+[1, 2, 3, 4, 5].forEach(async (el) => {
+  console.log('hello from the next iteration of the forEach loop, el: ', el);
+  const res = await new Promise((resolve) => {
+    console.log('making a new promise!'); // does not wait for loops to finish!
     return setTimeout(() => {
-      console.log('timeout is finished')
-      resolve(el)
-    }, 1000)
-  })
-  console.log('done "await"ing, res: ', res)  // res should === el
-})
+      console.log('timeout is finished');
+      resolve(el);
+    }, 1000);
+  });
+  console.log('done "await"ing, res: ', res); // res should === el
+});
 ```
 
 ... resulting in:
 
-```
+```js
 hello from the next iteration of the forEach loop, el:  1
 making a new promise!
 hello from the next iteration of the forEach loop, el:  2
@@ -148,9 +151,9 @@ timeout is finished
 done "await"ing, res:  5
 ```
 
-Foiled again!! ChatGPT then told me to use a `for...of` loop:
+Foiled again!! Note that in the latest example, I am not _reassigning_ any promises. ChatGPT then told me to use a `for...of` loop:
 
-```
+```js
 async function example() {
   for (const el of [1, 2, 3, 4, 5]) {
     console.log('hello from the next iteration of the for loop, el: ', el);

@@ -1,6 +1,6 @@
 # Reflections after a year of Vanilla JS
 
-### May 2023 - updated July 2023
+### July 2023
 
 Just over a year ago, I turned down a React Developer position to write vanilla JavaScript at [Coin Metrics](https://www.coinmetrics.io), a crypto data analytics startup out of Boston. I was excited to work without "training wheels." Plus, I figured the lower level knowledge would be impressive to recruiters.
 
