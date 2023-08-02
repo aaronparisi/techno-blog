@@ -8,6 +8,7 @@ import TableOfContents from './components/TableOfContents';
 import VanillaMarkdown from './blogPosts/VanillaReflections.md';
 import SkillsetMarkdown from './blogPosts/Skillset.md';
 import JSValueReferenceMarkdown from './blogPosts/JSValueReference.md';
+import AsyncForEach from './blogPosts/AsyncForEach.md';
 
 import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
@@ -26,6 +27,37 @@ export const getInitialThemePreference = () => {
     return false;
   }
 };
+
+export interface PostInfo {
+  path: string;
+  content: string;
+  markdown: string;
+}
+const pages: PostInfo[] = [
+  {
+    path: '/skillset',
+    content:
+      'The Skillset: my evolving understanding of what writing software entails - April 2023',
+    markdown: SkillsetMarkdown,
+  },
+  {
+    path: '/js-value-reference',
+    content:
+      'Is JavaScript Pass-by-Value or Pass-by-Reference: this and other age-old questions - April 2023',
+    markdown: JSValueReferenceMarkdown,
+  },
+  {
+    path: '/vanilla-reflections',
+    content:
+      'Vanilla with no Sprinkles: a meandering reflection on a year without React - July 2023',
+    markdown: VanillaMarkdown,
+  },
+  {
+    path: '/async-for-each',
+    content: 'async-a-what? : a ChatGPT learning session',
+    markdown: VanillaMarkdown,
+  },
+];
 
 function App() {
   // dark mode
@@ -56,16 +88,16 @@ function App() {
       <BrowserRouter>
         <DarkModeToggle toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Routes>
-          <Route path="/" element={<TableOfContents />} />
-          <Route
-            path="/vanilla-reflections"
-            element={<Post path={VanillaMarkdown} />}
-          />
-          <Route path="/skillset" element={<Post path={SkillsetMarkdown} />} />
-          <Route
-            path="/js-value-reference"
-            element={<Post path={JSValueReferenceMarkdown} />}
-          />
+          {pages.map(({ path, markdown }) => {
+            return (
+              <Route
+                key={path}
+                path={path}
+                element={<Post path={markdown} />}
+              />
+            );
+          })}
+          <Route path="/" element={<TableOfContents pages={pages} />} />
         </Routes>
       </BrowserRouter>
     </div>
