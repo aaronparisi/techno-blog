@@ -12,6 +12,11 @@ const pages: PostInfo[] = [
       'The Skillset: my evolving understanding of what writing software entails - April 2023',
   },
   {
+    path: '/js-value-reference',
+    content:
+      'Is JavaScript Pass-by-Value or Pass-by-Reference: this and other age-old questions - April 2023',
+  },
+  {
     path: '/vanilla-reflections',
     content:
       'Vanilla with no Sprinkles: a meandering reflection on a year without React - July 2023',

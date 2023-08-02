@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import TableOfContents from './components/TableOfContents';
 import VanillaMarkdown from './blogPosts/VanillaReflections.md';
 import SkillsetMarkdown from './blogPosts/Skillset.md';
+import JSValueReferenceMarkdown from './blogPosts/JSValueReference.md';
+
 import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
 
@@ -60,6 +62,10 @@ function App() {
             element={<Post path={VanillaMarkdown} />}
           />
           <Route path="/skillset" element={<Post path={SkillsetMarkdown} />} />
+          <Route
+            path="/js-value-reference"
+            element={<Post path={JSValueReferenceMarkdown} />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
