@@ -8,7 +8,10 @@ interface TableOfContentsProps {
 const TableOfContents: React.FC<TableOfContentsProps> = ({ pages }) => {
   return (
     <section className="table-of-contents">
-      <h1>Aaron Parisi's Techno-Blog</h1>
+      <h1>
+        Aaron Parisi's Techno-Blog: a minimally-styled collection of
+        experiments, pontifications, and reflections.
+      </h1>
       <h2>Table Of Contents</h2>
 
       <ul>
