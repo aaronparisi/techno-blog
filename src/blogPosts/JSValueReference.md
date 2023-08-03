@@ -1,4 +1,4 @@
-# Is JavaScript pass-by-value or pass-by-reference?
+# Is JavaScript pass-by-value or pass-by-reference? This and other age-old questions.
 
 #### April 2023
 
