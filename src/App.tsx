@@ -10,6 +10,7 @@ import SkillsetMarkdown from './blogPosts/Skillset.md';
 import JSValueReferenceMarkdown from './blogPosts/JSValueReference.md';
 import AsyncForEachMarkdown from './blogPosts/AsyncForEach.md';
 import StringPortMarkdown from './blogPosts/StringPort.md';
+import GitHubIssueTrackerMarkdown from './blogPosts/GitHubIssueTracker.md';
 
 import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
@@ -62,6 +63,11 @@ const pages: PostInfo[] = [
     content:
       'Vanilla with no Sprinkles: a meandering reflection on a year without React - July 2023',
     markdown: VanillaMarkdown,
+  },
+  {
+    path: '/gh-issue-tracker',
+    content: 'GitHub Issue Tracker Project: Lessons Learned - August 2023',
+    markdown: GitHubIssueTrackerMarkdown,
   },
 ];
 
