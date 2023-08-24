@@ -63,8 +63,8 @@ My next thought was to try to avoid `GrpahQL` entirely by calling the [REST API 
 where `selected_labels_string` is a random collection of comma-separated labels. The problem here is that, while `gh issue create` accepts a _string_ argument for its `-l` flag, `gh api -F labels=[...]` takes an _array_. I'm no `bash` wiz, and I couldn't figure out how to pass the labels. Attempts included:
 
 ```bash
+    labels=("bug" "documentation" "duplicate" "enhancement" "good first issue" "help wanted" "invalid" "question" "wontfix")
     labels_json=$(printf '"%s"\n' "${labels[@]}" | jq -s .)
-    echo $labels_json
 ```
 
 The example provided by the [Create an Issue Docs](https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#create-an-issue) utilized the `-d` flag as follows:
