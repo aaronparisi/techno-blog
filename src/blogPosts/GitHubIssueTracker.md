@@ -101,9 +101,19 @@ body: {
 }
 ```
 
+In the end, I just had a bunch of `sleep 5` all over it and it worked fine. It's not like I'd have to execute this script over and over anyway, it's just dummy data.
+
 # Multiple GitHub Usesrs
 
-As I was messing around with the secondary GitHub account I made for this project, I wanted to be able to push to / pull from both my main user's and this secondary user's repositories. This wasn't too-too difficult to figure out ([article](https://gist.github.com/oanhnn/80a89405ab9023894df7)) but I was somewhat dissatisfied that I had to modify the remote url for repos belonging to the secondary account (`git@my-secondary-github:my-secondary-username/some-repo.git`). But in any event it's always good practice to have to make new SSH keys.
+As I was messing around with the secondary GitHub account I made for this project, I wanted to be able to push to / pull from both my main user's and this secondary user's repositories. This wasn't too-too difficult to figure out ([article](https://gist.github.com/oanhnn/80a89405ab9023894df7)) but I was somewhat dissatisfied that I had to modify the remote url for repos belonging to the secondary account
+
+```bash
+git@my-secondary-github:my-secondary-username/some-repo.git
+# vs
+git@github.com:my-primary-username/some-repo.git
+```
+
+But in any event it's always good practice to have to make new SSH keys.
 
 # Getting the Data
 
@@ -115,7 +125,7 @@ The Express server used [dotenv](https://github.com/motdotla/dotenv) and [cors m
 
 The client-side code is a [React application](https://github.com/aaronparisi/railway-gh-issue-tracker) that's simple enough - a header, a sidebar showing a list of repos, and a main panel showing the issues for the selected repository. Some stuff I reflected on:
 
-- Should I return _all_ data (every repository, every issue for every repository) from a single API endpoint? Will there be significant delays in before any data is rendered?
+- Should I return _all_ data (every repository, every issue for every repository) from a single API endpoint? Will there be significant delays before any data is rendered?
 - I decided against this - so issue data would be fetched 1 repository at a time, at the time of repository selection. Which component should contain the issue-fetching logic?
 - I ended up putting it in `App` itself, rather than in the component displaying the issues. I don't see a reason why the component _rendering_ the issues has to be responsible for _obtaining_ the issues, it can simply be a recipient of data that the App itself manages. Conceptual argument aside, I was able to avoid passing a few extra props.
 
