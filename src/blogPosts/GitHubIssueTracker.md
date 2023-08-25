@@ -2,7 +2,7 @@
 
 ### August 2023
 
-I recently came across a job posting that advertised one possible take-home exercise: a GitHub issue tracker. I thought that was a cool project, and I had never worked with the GitHub API before.
+I recently came across a job posting that advertised one possible take-home exercise: a GitHub issue tracker. I thought that was a cool project, and I had never worked with the GitHub API before. UI is live here: https://gh-issue-tracker.aaronparisi.dev/
 
 # Seeding the repos & issues
 
