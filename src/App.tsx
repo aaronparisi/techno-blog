@@ -11,6 +11,7 @@ import JSValueReferenceMarkdown from './blogPosts/JSValueReference.md';
 import AsyncForEachMarkdown from './blogPosts/AsyncForEach.md';
 import StringPortMarkdown from './blogPosts/StringPort.md';
 import GitHubIssueTrackerMarkdown from './blogPosts/GitHubIssueTracker.md';
+import ReactExplorationsMarkdown from './blogPosts/ReactExplorations.md';
 
 import Post from './components/Post';
 import DarkModeToggle from './components/DarkModeToggle';
@@ -68,6 +69,11 @@ const pages: PostInfo[] = [
     path: '/gh-issue-tracker',
     content: 'GitHub Issue Tracker Project: Lessons Learned - August 2023',
     markdown: GitHubIssueTrackerMarkdown,
+  },
+  {
+    path: '/react-explorations',
+    content: 'React Explorations: a ChatGPT learning session',
+    markdown: ReactExplorationsMarkdown,
   },
 ];
 
