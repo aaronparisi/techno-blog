@@ -4,7 +4,9 @@
 
 I found some recent question-answer sessions with ChatGPT to be quite interesting. I know the session is going well when each answer inspires a few more questions.
 
-**==========> Question:** if the function foo does not produce a return value, is it appropriate to say `foo(5)` is still an expression, just an expression that evaluates to `undefined`?
+## ==> Question <==
+
+if the function foo does not produce a return value, is it appropriate to say `foo(5)` is still an expression, just an expression that evaluates to `undefined`?
 
 Alternatively, since `let baz = 5` "produces" `undefined`, is it fair to say the assignment statement is also an expression? that doesn't seem correct.
 
@@ -29,7 +31,9 @@ In summary:
 
 So, while both `foo(5)` and `let baz = 5` involve the concept of "evaluation" in a way, only `foo(5)` is truly an expression because it produces a value, even if that value is `undefined`.
 
-**==========> Question:** I know that the JSX syntax `<MyComponent someProp={someProp} />` is transpiled into calls of the react function createElement. I know that createElement returns an object with, among other things a `props` attribute and a `type` attribute, corresponding to the function who returns the markup for the component. I know that ultimately, React is using native browser APIs (document.createElement, etc) to turn this "react element" (aka object) into an actual member of the DOM.
+## ==> Question <==
+
+I know that the JSX syntax `<MyComponent someProp={someProp} />` is transpiled into calls of the react function createElement. I know that createElement returns an object with, among other things a `props` attribute and a `type` attribute, corresponding to the function who returns the markup for the component. I know that ultimately, React is using native browser APIs (document.createElement, etc) to turn this "react element" (aka object) into an actual member of the DOM.
 
 I am wondering about how React keeps track of these elements, specifically for the process of diffing and re-rendering. Can you provide a high level overview of this process? And can you provide any links to articles about it (if you have access to that information)?
 
@@ -83,7 +87,9 @@ Here are some resources where you can learn more about React's rendering process
 
 These resources provide more detailed insights into how React's rendering process works and how it efficiently manages updates to keep your application responsive.
 
-**==========> Question:** Thank you for that information. I have a few follow-up questions:
+## ==> Question <==
+
+Thank you for that information. I have a few follow-up questions:
 
 1. I am curious about the efficiency of React (with its virtual DOM) compared to imperative DOM manipulation from vanilla JavaScript (functional code that manually updates the specific parts of the DOM when appropriate). I know the latter is considered more difficult to write and maintain since DOM nodes have to be manually updated, but React's additional layer of calculation for virtual dom reconciliation seems inefficient. How does React ensure that it remains performant despite havging to perform these diffing computations?
 
@@ -122,7 +128,9 @@ These resources provide more detailed insights into how React's rendering proces
 
 In summary, React's efficiency comes from its ability to batch updates, optimize the reconciliation process, and selectively update the DOM. It provides a higher-level, declarative approach to building user interfaces, which can lead to more maintainable code compared to imperative DOM manipulation, even with the overhead of the Virtual DOM.
 
-**==========> Question:** RE batch updates: does this mean that React may be less performant for an application that requires extremely fast updates, say, a trading dashboard with hundreds of data updates a second? Is there a way to tell react "when this data changes, stop what you're doing and update no matter what"?
+## ==> Question <==
+
+RE batch updates: does this mean that React may be less performant for an application that requires extremely fast updates, say, a trading dashboard with hundreds of data updates a second? Is there a way to tell react "when this data changes, stop what you're doing and update no matter what"?
 
 As optimized as React's diffing algorithm may be, do you agree that it does add computational expense to an application? Is that expense generally considered tolerable because of the other benefits of React? I'm just wondering if using native APIs for direct imperative DOM manipulation is ultimately a more efficient mechanism, even if it's more difficult to use effectively.
 
