@@ -72,7 +72,7 @@ const pages: PostInfo[] = [
   },
   {
     path: '/react-explorations',
-    content: 'React Explorations: a ChatGPT learning session',
+    content: 'React Explorations: a ChatGPT learning session - September 2023',
     markdown: ReactExplorationsMarkdown,
   },
 ];
